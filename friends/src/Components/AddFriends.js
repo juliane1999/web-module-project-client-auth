@@ -1,7 +1,9 @@
-import React from 'react'
+import React,{useState} from 'react'
+import axiosWithAuth from './axiosWithAuth'
+
 
 const AddFriends = (props) => {
-    const {addFriend} = props
+    const {friend} = props
     const initialState ={
         name: '',
         email: ''
@@ -18,8 +20,7 @@ const AddFriends = (props) => {
         
     const handleSubmit = e => {
         e.preventDefault()
-        setIsLoading(true)
-        setError('')
+       
         const newFriend = {
             name: user.name,
             email: user.email,
@@ -29,12 +30,9 @@ const AddFriends = (props) => {
         axiosWithAuth().post('friends', newFriend)
             .then(res => {
                 console.log(res)
-                setIsLoading(false)
             })
             .catch(err => {
                 console.log(err)
-                setIsLoading(false)
-                setError('err')
             })
     }
 
@@ -42,32 +40,32 @@ const AddFriends = (props) => {
         <div>
             <form onSubmit={handleSubmit}>
 
-<label>
-    Name:
-</label>
-<input
-type='text'
-name='name'
-value={user.name}
-onChange={handleChanges}
-/>
+        <label>
+            Name:
+        </label>
+        <input
+        type='text'
+        name='name'
+        value={user.name}
+        onChange={handleChanges}
+        />
 
-<label>
-    Email:
-</label>
-<input 
- type='text'
- name='email'
- value={user.email}
- onChange={handleChanges}
- />
+        <label>
+            Email:
+        </label>
+        <input 
+        type='text'
+        name='email'
+        value={user.email}
+        onChange={handleChanges}
+        />
 
- <button>Add Friend</button>
+        <button>Add Friend</button>
 
 
-</form>
-        </div>
-    )
-}
+        </form>
+                </div>
+            )
+        }
 
 export default AddFriends
